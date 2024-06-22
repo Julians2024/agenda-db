@@ -1,0 +1,9 @@
+/* styles/MyCalendar.css */
+.custom-date-cell {
+    cursor: pointer;
+    position: relative;
+}
+
+    .custom-date-cell.selected {
+        background-color: #e6f7ff; /* Color de fondo cuando está seleccionado */
+    }
