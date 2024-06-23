@@ -1,32 +1,25 @@
-const admin = require('firebase-admin');
-const serviceAccount = require('./path/to/serviceAccountKey.json');
+import React from 'react';
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+const DayTimeSlotWrapper = ({ children, value, openModal }) => {
+    const handleClick = () => {
+        openModal(value.getHours());
+    };
 
-exports.handler = async function (event, context) {
-    const data = JSON.parse(event.body);
-    const { month, day, hour, name, color } = data;
-
-    try {
-        const db = admin.firestore();
-        await db.collection('events').add({
-            month,
-            day,
-            hour,
-            name,
-            color
-        });
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: 'Event added successfully' })
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: 'Failed to add event', error: error.message })
-        };
-    }
+    return (
+        <div
+            onClick={handleClick}
+            style={{
+                cursor: 'pointer',
+                height: '100%',
+                backgroundColor: value.getDay() === 0 || value.getDay() === 1 ? 'transparent' : '#ffffff',
+                pointerEvents: value.getDay() === 0 || value.getDay() === 1 ? 'none' : 'auto',
+                borderLeft: '1px solid #ddd', // Añade borde izquierdo para separar las columnas
+            }}
+        >
+            {children}
+        </div>
+    );
 };
+
+export default DayTimeSlotWrapper;
 
