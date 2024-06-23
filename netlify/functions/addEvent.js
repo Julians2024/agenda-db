@@ -1,9 +1,6 @@
 const admin = require('firebase-admin');
+const serviceAccount = require('./netlify/functions/serviceAccountKey.json');
 
-// Cargar las credenciales del archivo JSON descargado desde Firebase Console
-const serviceAccount = require('./path/to/your/serviceAccountKey.json');
-
-// Inicializar la aplicación de Firebase
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
